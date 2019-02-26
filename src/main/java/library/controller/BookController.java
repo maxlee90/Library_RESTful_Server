@@ -17,9 +17,12 @@ public class BookController extends BaseController {
     private final BookService bookService;
 
     @GetMapping
-    public ReadBooksRes read(){
+    public ReadBooksRes readAll(){
         return bookService.getAllBooks();
     }
+
+    @GetMapping("/{id}")
+    public ReadBooksRes read(@PathVariable long id) { return bookService.getBook(id);}
 
     @PostMapping
     public CreateBooksRes create(@Valid @RequestBody CreateBooksReq req){

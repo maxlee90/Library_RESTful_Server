@@ -3,10 +3,7 @@ package library.service;
 import java.util.ArrayList;
 import java.util.List;
 import library.application.*;
-import library.common.BookDto;
-import library.common.DtoMapper;
-import library.common.ErrorCode;
-import library.common.ErrorDto;
+import library.common.*;
 import library.domain.book.Book;
 import library.domain.book.RentResultStatus;
 import library.domain.user.User;
@@ -29,6 +26,17 @@ public class BookService extends BaseService {
 
     public ReadBooksRes getAllBooks(){
         return new ReadBooksRes(dtoMapper.mapToBookDtos(bookRepository.findAll()));
+    }
+
+    public ReadBooksRes getBook(long id){
+        List<BookDto> books = new ArrayList<>() ;
+
+        Book book = bookRepository.findById(id);
+        if(book == null) return new ReadBooksRes(new ErrorDto(ErrorCode.NON_EXIST_BOOK,null));
+
+        books.add(dtoMapper.mapToDto(book));
+
+        return new ReadBooksRes(books);
     }
 
 
