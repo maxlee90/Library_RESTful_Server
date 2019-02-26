@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import library.application.*;
 import library.common.*;
+import library.controller.method.BookMethod;
 import library.domain.book.Book;
 import library.domain.book.RentResultStatus;
 import library.domain.user.User;
@@ -39,6 +40,16 @@ public class BookService extends BaseService {
         return new ReadBooksRes(books);
     }
 
+    public ReadBooksRes getBook(ReadBooksReq req){
+
+        if(req == null) return getAllBooks();
+        if(req.getAuthor() == null) return getAllBooks();
+
+        List<Book> books = bookRepository.findAllByAuthor(req.getAuthor());
+        if(books == null) return new ReadBooksRes(new ErrorDto(ErrorCode.NON_EXIST_BOOK,null));
+
+        return new ReadBooksRes(dtoMapper.mapToBookDtos(books));
+    }
 
     public CreateBooksRes addBook(CreateBooksReq req){
 
@@ -63,27 +74,28 @@ public class BookService extends BaseService {
         return new CreateBooksRes(books);
     }
 
-    public UpdateBooksRes rentBook(String username, long id, UpdateBooksReq req) throws ApplicationServiceException {
+    public UpdateBooksRes rentBook(String username, long id) throws ApplicationServiceException {
         try{
             Book book = bookRepository.findById(id);
             User user = userRepository.findByFirstName(username);
 
-            if(book == null) return new UpdateBooksRes(req.getMethod(), new ErrorDto(ErrorCode.NON_EXIST_BOOK,null));
-            if(user == null) return new UpdateBooksRes(req.getMethod(), new ErrorDto(ErrorCode.NON_EXIST_USER,null));
+            if(book == null) return new UpdateBooksRes(BookMethod.RENT, new ErrorDto(ErrorCode.NON_EXIST_BOOK,null));
+            if(user == null) return new UpdateBooksRes(BookMethod.RENT, new ErrorDto(ErrorCode.NON_EXIST_USER,null));
 
             if (book.isRentable()) {
                 log.info("book info => {}", book.toString());
 
                 book.rent(user.getId());
+
                 bookRepository.save(book);
 
-                log.info("[{}] {}, {}", req.getMethod(), RentResultStatus.SUCCESS_RENT, book.toString());
+                log.info("[{}] {}, {}", BookMethod.RENT, RentResultStatus.SUCCESS_RENT, book.toString());
 
-                return new UpdateBooksRes(req.getMethod(), dtoMapper.mapToDto(book));
+                return new UpdateBooksRes(BookMethod.RENT, dtoMapper.mapToDto(book));
             }
             else{
-                log.info("[{}] {}, {}, ", req.getMethod(), RentResultStatus.ALEADY_OCCUPIED, book.toString());
-                return new UpdateBooksRes(req.getMethod(),
+                log.info("[{}] {}, {}, ", BookMethod.RENT, RentResultStatus.ALEADY_OCCUPIED, book.toString());
+                return new UpdateBooksRes(BookMethod.RENT,
                         new ErrorDto(ErrorCode.UNAVAILABLE,RentResultStatus.ALEADY_OCCUPIED.toString()));
             }
         } catch (NullPointerException e){

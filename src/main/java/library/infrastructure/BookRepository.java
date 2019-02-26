@@ -14,5 +14,7 @@ public interface BookRepository extends
 
     Book findByName(String name);
 
+    List<Book> findAllByAuthor(String author);
+
     Book findById(long id);
 }

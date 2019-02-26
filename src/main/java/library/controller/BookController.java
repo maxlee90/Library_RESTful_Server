@@ -1,5 +1,6 @@
 package library.controller;
 
+import javax.annotation.Nullable;
 import javax.validation.Valid;
 import library.application.*;
 import library.common.ErrorCode;
@@ -16,13 +17,13 @@ public class BookController extends BaseController {
 
     private final BookService bookService;
 
-    @GetMapping
-    public ReadBooksRes readAll(){
-        return bookService.getAllBooks();
-    }
-
     @GetMapping("/{id}")
     public ReadBooksRes read(@PathVariable long id) { return bookService.getBook(id);}
+
+    @GetMapping
+    public ReadBooksRes read(@Nullable @RequestBody ReadBooksReq req){
+        return bookService.getBook(req);
+    }
 
     @PostMapping
     public CreateBooksRes create(@Valid @RequestBody CreateBooksReq req){
@@ -40,7 +41,7 @@ public class BookController extends BaseController {
 
         switch (req.getMethod()){
             case RENT:
-                return bookService.rentBook("test",id,req);
+                return bookService.rentBook("test",id);
             default:
                 return new UpdateBooksRes(
                         null,
