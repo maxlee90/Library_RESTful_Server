@@ -12,5 +12,8 @@ public class BookRepositoryImpl extends QuerydslRepositorySupport
   public BookRepositoryImpl() {
 
     super(Book.class);
-    }
+  }
+
+
+
 }

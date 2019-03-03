@@ -1,6 +1,7 @@
 package library.common;
 
 import java.io.Serializable;
+import library.domain.book.BookStatus;
 import library.domain.category.Category;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,4 +17,5 @@ public class BookDto implements Serializable {
     String name;
     String author;
     Category category;
+    BookStatus bookStatus;
 }

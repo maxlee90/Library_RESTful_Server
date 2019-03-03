@@ -37,9 +37,26 @@ public class Book extends BaseEntity {
         return status == BookStatus.RENTABLE;
     }
 
-    public void rent(long user_id){
+    public boolean isReturnable() { return status == BookStatus.UNRENTABLE;}
+
+    // 책 빌리기
+    public boolean rent(long user_id){
+        if(!isRentable()) return false;
+
         this.user_id = user_id;
         status = BookStatus.UNRENTABLE;
+
+        return true;
+    }
+
+    // 책 반납하기
+    public boolean _return(long user_id){
+        if(this.user_id != user_id) return false;
+
+        this.user_id = null;
+        status = BookStatus.RENTABLE;
+
+        return true;
     }
 
     public void setName(String name){
@@ -56,6 +73,11 @@ public class Book extends BaseEntity {
 
     @Override
     public String toString(){
-        return id + ":" + name + ":" + author + ":" + category +":"+ status + ":" + user_id;
+        return "[Book Info]" +
+                "SerialNumber : " + id + ", " +
+                "Name : " + name + ", " +
+                "Author : " + author + ", " +
+                "Category : " + category + ", " +
+                "Rent Status : " + status;
     }
 }

@@ -1,7 +1,9 @@
 package library.domain.book;
 
 public enum RentResultStatus {
-    NO_BOOK,
     SUCCESS_RENT,
-    ALEADY_OCCUPIED
+    SUCCESS_RETURN,
+    ALEADY_OCCUPIED,
+    NO_ONE_RENT,
+    UNAUTHORIZED
 }

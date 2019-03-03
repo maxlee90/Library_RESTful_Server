@@ -3,7 +3,10 @@ package library.service;
 import java.util.ArrayList;
 import java.util.List;
 import library.application.*;
-import library.common.*;
+import library.common.BookDto;
+import library.common.DtoMapper;
+import library.common.ErrorCode;
+import library.common.ErrorDto;
 import library.controller.method.BookMethod;
 import library.domain.book.Book;
 import library.domain.book.RentResultStatus;
@@ -82,22 +85,48 @@ public class BookService extends BaseService {
             if(book == null) return new UpdateBooksRes(BookMethod.RENT, new ErrorDto(ErrorCode.NON_EXIST_BOOK,null));
             if(user == null) return new UpdateBooksRes(BookMethod.RENT, new ErrorDto(ErrorCode.NON_EXIST_USER,null));
 
-            if (book.isRentable()) {
-                log.info("book info => {}", book.toString());
-
-                book.rent(user.getId());
-
-                bookRepository.save(book);
-
-                log.info("[{}] {}, {}", BookMethod.RENT, RentResultStatus.SUCCESS_RENT, book.toString());
-
-                return new UpdateBooksRes(BookMethod.RENT, dtoMapper.mapToDto(book));
-            }
-            else{
+            if (!book.rent(user.getId())) {
                 log.info("[{}] {}, {}, ", BookMethod.RENT, RentResultStatus.ALEADY_OCCUPIED, book.toString());
                 return new UpdateBooksRes(BookMethod.RENT,
-                        new ErrorDto(ErrorCode.UNAVAILABLE,RentResultStatus.ALEADY_OCCUPIED.toString()));
+                        new ErrorDto(ErrorCode.INVALID,RentResultStatus.ALEADY_OCCUPIED.toString()));
             }
+
+            bookRepository.save(book);
+
+            log.info("[{}] {}, {}", BookMethod.RENT, RentResultStatus.SUCCESS_RENT, book.toString());
+            return new UpdateBooksRes(BookMethod.RENT, dtoMapper.mapToDto(book));
+
+        } catch (NullPointerException e){
+            log.error("error message on rentBook() : ", e.toString());
+            throw new ApplicationServiceException(new ErrorDto(ErrorCode.INTERNAL_SERVER_ERROR,null));
+        }
+    }
+
+    public UpdateBooksRes returnBook(String username, long id) throws ApplicationServiceException {
+        try{
+            Book book = bookRepository.findById(id);
+            User user = userRepository.findByFirstName(username);
+
+            if(book == null) return new UpdateBooksRes(BookMethod.RETURN, new ErrorDto(ErrorCode.NON_EXIST_BOOK,null));
+            if(user == null) return new UpdateBooksRes(BookMethod.RETURN, new ErrorDto(ErrorCode.NON_EXIST_USER,null));
+
+            if (!book.isReturnable()) {
+                log.info("[{}] {}, {}, ", BookMethod.RETURN, RentResultStatus.NO_ONE_RENT, book.toString());
+                return new UpdateBooksRes(BookMethod.RETURN,
+                        new ErrorDto(ErrorCode.INVALID,RentResultStatus.NO_ONE_RENT.toString()));
+            }
+
+            if(!book._return(id)) {
+                log.info("[{}] {}, {}, ", BookMethod.RETURN, RentResultStatus.UNAUTHORIZED, book.toString());
+                return new UpdateBooksRes(BookMethod.RETURN,
+                        new ErrorDto(ErrorCode.INVALID,RentResultStatus.UNAUTHORIZED.toString()));
+            }
+
+            bookRepository.save(book);
+
+            log.info("[{}] {}, {}", BookMethod.RETURN, RentResultStatus.SUCCESS_RETURN, book.toString());
+            return new UpdateBooksRes(BookMethod.RETURN, dtoMapper.mapToDto(book));
+
         } catch (NullPointerException e){
             log.error("error message on rentBook() : ", e.toString());
             throw new ApplicationServiceException(new ErrorDto(ErrorCode.INTERNAL_SERVER_ERROR,null));

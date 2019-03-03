@@ -1,9 +1,8 @@
 package library.controller;
 
 import javax.validation.Valid;
+import library.application.BaseResponse;
 import library.application.CreateUsersReq;
-import library.application.CreateUsersRes;
-import library.application.ReadUsersRes;
 import library.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,12 +17,12 @@ public class UserController extends BaseController{
     private final UserService userService;
 
     @GetMapping
-    public ReadUsersRes getAllUsers(){
+    public BaseResponse getAllUsers(){
         return userService.getAllUsers();
     }
 
     @PostMapping
-    public CreateUsersRes createUser(@Valid @RequestBody CreateUsersReq req){
+    public BaseResponse createUser(@Valid @RequestBody CreateUsersReq req){
         return userService.createUser(req);
     }
 

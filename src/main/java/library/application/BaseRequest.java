@@ -1,5 +1,5 @@
 package library.application;
 
-public abstract class BaseRequest {
+public class BaseRequest {
 
 }

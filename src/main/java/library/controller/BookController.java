@@ -18,20 +18,20 @@ public class BookController extends BaseController {
     private final BookService bookService;
 
     @GetMapping("/{id}")
-    public ReadBooksRes read(@PathVariable long id) { return bookService.getBook(id);}
+    public BaseResponse read(@PathVariable long id) { return bookService.getBook(id);}
 
     @GetMapping
-    public ReadBooksRes read(@Nullable @RequestBody ReadBooksReq req){
+    public BaseResponse read(@Nullable @RequestBody ReadBooksReq req){
         return bookService.getBook(req);
     }
 
     @PostMapping
-    public CreateBooksRes create(@Valid @RequestBody CreateBooksReq req){
+    public BaseResponse create(@Valid @RequestBody CreateBooksReq req){
         return bookService.addBook(req);
     }
 
     @PutMapping("/{id}")
-    public UpdateBooksRes update(
+    public BaseResponse update(
             @PathVariable long id,
             @Valid @RequestBody UpdateBooksReq req){
 
@@ -42,6 +42,8 @@ public class BookController extends BaseController {
         switch (req.getMethod()){
             case RENT:
                 return bookService.rentBook("test",id);
+            case RETURN:
+                return bookService.returnBook("test", id);
             default:
                 return new UpdateBooksRes(
                         null,

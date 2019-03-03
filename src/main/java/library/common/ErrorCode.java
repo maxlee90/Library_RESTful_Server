@@ -7,5 +7,6 @@ public enum ErrorCode {
     NON_EXIST_USER,
     ALEADY_EXIST_BOOK,
     ALEADY_EXIST_USER,
-    UNAVAILABLE
+    UNAVAILABLE,
+    INVALID
 }

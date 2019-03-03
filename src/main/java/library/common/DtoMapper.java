@@ -37,7 +37,7 @@ public class DtoMapper {
     }
 
     public BookDto mapToDto(Book book){
-        return new BookDto(book.getId(),book.getName(),book.getAuthor(), book.getCategory());
+        return new BookDto(book.getId(),book.getName(),book.getAuthor(), book.getCategory(),book.getStatus());
     }
     public UserDto mapToDto(User user){
         return new UserDto(user.getId(), user.getFirstName(), user.getLastName(), user.getAddress(), user.getType());
