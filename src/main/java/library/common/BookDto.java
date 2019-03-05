@@ -13,9 +13,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BookDto implements Serializable {
-    Long id;
-    String name;
-    String author;
-    Category category;
-    BookStatus bookStatus;
+  Long id;
+  String name;
+  String author;
+  Category category;
+  BookStatus bookStatus;
 }

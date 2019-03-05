@@ -6,12 +6,13 @@ import lombok.Getter;
 
 @Getter
 public class CreateUsersRes extends BaseResponse {
-    UserDto user;
+  UserDto user;
 
-    public CreateUsersRes(ErrorDto errorDto){ super(errorDto); }
+  public CreateUsersRes(ErrorDto errorDto) {
+    super(errorDto);
+  }
 
-    public CreateUsersRes(UserDto user){
-        this.user = user;
-
-    }
+  public CreateUsersRes(UserDto user) {
+    this.user = user;
+  }
 }

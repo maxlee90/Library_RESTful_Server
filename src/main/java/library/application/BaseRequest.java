@@ -1,5 +1,3 @@
 package library.application;
 
-public class BaseRequest {
-
-}
+public class BaseRequest {}

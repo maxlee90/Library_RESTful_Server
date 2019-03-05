@@ -9,5 +9,5 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 public class CreateUsersReq extends BaseRequest {
-    UserDto user;
+  UserDto user;
 }

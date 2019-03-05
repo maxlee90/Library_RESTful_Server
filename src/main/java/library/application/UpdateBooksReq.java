@@ -8,6 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UpdateBooksReq {
-    BookMethod method;
-    BookDto book;
+  BookMethod method;
+  BookDto book;
 }
