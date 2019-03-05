@@ -7,9 +7,10 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 public abstract class BaseController {
-    @ExceptionHandler
-    protected BaseResponse handleValidationException(MethodArgumentNotValidException exception) {
-        return new BaseResponse(new ErrorDto(ErrorCode.BAD_DATA_FORMAT,
-                exception.getBindingResult().getFieldErrors().toString()));
-    }
+  @ExceptionHandler
+  protected BaseResponse handleValidationException(MethodArgumentNotValidException exception) {
+    return new BaseResponse(
+        new ErrorDto(
+            ErrorCode.BAD_DATA_FORMAT, exception.getBindingResult().getFieldErrors().toString()));
+  }
 }

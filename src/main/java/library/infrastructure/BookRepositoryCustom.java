@@ -1,4 +1,3 @@
 package library.infrastructure;
 
-public interface BookRepositoryCustom {
-}
+public interface BookRepositoryCustom {}

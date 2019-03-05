@@ -1,5 +1,3 @@
 package library.security;
 
-
-public class SecurityWebApplicationInitializer  {
-}
+public class SecurityWebApplicationInitializer {}

@@ -5,11 +5,9 @@ import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 import org.springframework.stereotype.Repository;
 
 @Repository("userRepository")
-public class UserRepositoryImpl extends QuerydslRepositorySupport
-    implements UserRepositoryCustom {
+public class UserRepositoryImpl extends QuerydslRepositorySupport implements UserRepositoryCustom {
 
-    public UserRepositoryImpl(){
-        super(User.class);
-    }
-
+  public UserRepositoryImpl() {
+    super(User.class);
+  }
 }

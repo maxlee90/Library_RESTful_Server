@@ -11,35 +11,38 @@ import org.springframework.stereotype.Component;
 @Component
 public class DtoMapper {
 
-    public List<BookDto> mapToBookDtos(List<Book> books){
+  public List<BookDto> mapToBookDtos(List<Book> books) {
 
-        if(books == null) return null;
+    if (books == null) return null;
 
-        List<BookDto> list = new ArrayList<>();
+    List<BookDto> list = new ArrayList<>();
 
-        for(Book book : books){
-            list.add(mapToDto(book));
-        }
-
-        return list;
+    for (Book book : books) {
+      list.add(mapToDto(book));
     }
 
-    public List<UserDto> mapToUserDtos(List<User> users){
-        if(users == null) return null;
+    return list;
+  }
 
-        List<UserDto> list = new ArrayList<>();
+  public List<UserDto> mapToUserDtos(List<User> users) {
+    if (users == null) return null;
 
-        for(User user : users){
-            list.add(mapToDto(user));
-        }
+    List<UserDto> list = new ArrayList<>();
 
-        return list;
+    for (User user : users) {
+      list.add(mapToDto(user));
     }
 
-    public BookDto mapToDto(Book book){
-        return new BookDto(book.getId(),book.getName(),book.getAuthor(), book.getCategory(),book.getStatus());
-    }
-    public UserDto mapToDto(User user){
-        return new UserDto(user.getId(), user.getFirstName(), user.getLastName(), user.getAddress(), user.getType());
-    }
+    return list;
+  }
+
+  public BookDto mapToDto(Book book) {
+    return new BookDto(
+        book.getId(), book.getName(), book.getAuthor(), book.getCategory(), book.getStatus());
+  }
+
+  public UserDto mapToDto(User user) {
+    return new UserDto(
+        user.getId(), user.getFirstName(), user.getLastName(), user.getAddress(), user.getType());
+  }
 }
