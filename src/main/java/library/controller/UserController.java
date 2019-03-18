@@ -13,17 +13,16 @@ import org.springframework.web.bind.annotation.*;
 @RestController("userController")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @RequestMapping("users")
-public class UserController extends BaseController{
-    private final UserService userService;
+public class UserController extends BaseController {
+  private final UserService userService;
 
-    @GetMapping
-    public BaseResponse getAllUsers(){
-        return userService.getAllUsers();
-    }
+  @GetMapping
+  public BaseResponse getAllUsers() {
+    return userService.getAllUsers();
+  }
 
-    @PostMapping
-    public BaseResponse createUser(@Valid @RequestBody CreateUsersReq req){
-        return userService.createUser(req);
-    }
-
+  @PostMapping
+  public BaseResponse createUser(@Valid @RequestBody CreateUsersReq req) {
+    return userService.createUser(req);
+  }
 }

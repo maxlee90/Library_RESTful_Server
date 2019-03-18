@@ -10,13 +10,12 @@ import lombok.Getter;
 @Getter
 public class UpdateBooksRes extends BaseResponse {
 
-    BookMethod method;
-    BookDto book;
+  BookMethod method;
+  BookDto book;
 
-    public UpdateBooksRes(BookMethod method, ErrorDto errorDto){
-        super(errorDto);
-        this.method = method;
-        book=null;
-    }
-
+  public UpdateBooksRes(BookMethod method, ErrorDto errorDto) {
+    super(errorDto);
+    this.method = method;
+    book = null;
+  }
 }

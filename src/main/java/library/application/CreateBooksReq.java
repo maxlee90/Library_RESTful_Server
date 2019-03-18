@@ -11,5 +11,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CreateBooksReq extends BaseRequest {
 
-    List<BookDto> books;
+  List<BookDto> books;
 }

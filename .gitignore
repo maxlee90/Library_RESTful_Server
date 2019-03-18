@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.class
 logs/
 
@@ -89,3 +90,8 @@ rebel.xml
 
 # NPM
 npm-debug.log
+=======
+.idea/
+out/
+src/main/generated/
+>>>>>>> 79bde279fcb573087eec55e9e64324557c9fe3f4

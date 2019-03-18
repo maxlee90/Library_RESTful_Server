@@ -6,14 +6,13 @@ import java.util.Collections;
 import library.domain.event.BaseEvent;
 
 public abstract class BaseEntity {
-    private Collection<BaseEvent> events = new ArrayList<>();
+  private Collection<BaseEvent> events = new ArrayList<>();
 
-    public void addEvent(BaseEvent event) {
-        events.add(event);
-    }
+  public void addEvent(BaseEvent event) {
+    events.add(event);
+  }
 
-    public Collection<BaseEvent> getEvents() {
-        return Collections.unmodifiableCollection(events);
-    }
-
+  public Collection<BaseEvent> getEvents() {
+    return Collections.unmodifiableCollection(events);
+  }
 }

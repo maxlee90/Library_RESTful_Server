@@ -1,5 +1,3 @@
 package library;
 
-public class WebSecuriyConfig {
-
-}
+public class WebSecuriyConfig {}

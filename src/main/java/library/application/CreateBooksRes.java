@@ -8,12 +8,13 @@ import lombok.Getter;
 @Getter
 public class CreateBooksRes extends BaseResponse {
 
-    List<BookDto> books;
+  List<BookDto> books;
 
-    public CreateBooksRes(ErrorDto errorDto){ super(errorDto); }
+  public CreateBooksRes(ErrorDto errorDto) {
+    super(errorDto);
+  }
 
-    public CreateBooksRes(List<BookDto> books){
-        this.books = books;
-
-    }
+  public CreateBooksRes(List<BookDto> books) {
+    this.books = books;
+  }
 }

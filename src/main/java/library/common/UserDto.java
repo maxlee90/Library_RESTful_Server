@@ -12,9 +12,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserDto implements Serializable {
-    Long id;
-    String firstName;
-    String lastName;
-    String address;
-    UserType type;
+  Long id;
+  String firstName;
+  String lastName;
+  String address;
+  UserType type;
 }
